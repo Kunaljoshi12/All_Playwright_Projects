@@ -1,0 +1,17 @@
+
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+
+# Playwright Specifics
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+
+# Media and Logs
+videos/
+screenshots/

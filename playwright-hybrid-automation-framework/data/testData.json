@@ -1,0 +1,22 @@
+[
+  {
+    "testCaseId": "TC_001",
+    "description": "Enter a positive integer",
+    "inputValue": "12345"
+  },
+  {
+    "testCaseId": "TC_002",
+    "description": "Enter a negative integer",
+    "inputValue": "-987"
+  },
+  {
+    "testCaseId": "TC_003",
+    "description": "Enter zero",
+    "inputValue": "0"
+  },
+  {
+    "testCaseId": "TC_004",
+    "description": "Enter a large number",
+    "inputValue": "999999"
+  }
+]

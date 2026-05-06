@@ -1,0 +1,22 @@
+{
+  "name": "playwright-hybrid-framework",
+  "version": "1.0.0",
+  "description": "Hybrid Data-Driven Framework using Playwright, TypeScript, MySQL, and Excel",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --ui",
+    "report": "npx playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "csv-parse": "^6.2.1",
+    "dotenv": "^16.6.1",
+    "exceljs": "^3.4.0",
+    "mysql2": "^3.22.3"
+  }
+}

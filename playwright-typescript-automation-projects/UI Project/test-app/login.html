@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #c8a96e;
+      --gold-light: #dfc190;
+      --gold-dim: rgba(200,169,110,0.15);
+      --bg: #080810;
+      --surface: #0e0e18;
+      --surface2: #13131f;
+      --border: rgba(200,169,110,0.18);
+      --border-focus: rgba(200,169,110,0.55);
+      --text: #f0ece4;
+      --text-muted: #7a7591;
+      --text-dim: #4a4665;
+      --red: #e05252;
+      --green: #4caf82;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Ambient background orbs */
+    body::before, body::after {
+      content: '';
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 70%);
+      top: -100px; right: -80px;
+      animation: drift1 12s ease-in-out infinite alternate;
+    }
+    body::after {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(100,80,180,0.06) 0%, transparent 70%);
+      bottom: -80px; left: -60px;
+      animation: drift2 15s ease-in-out infinite alternate;
+    }
+
+    @keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(20px, 30px); } }
+    @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-20px, -25px); } }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+    }
+
+    /* Decorative grid lines */
+    .grid-lines {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(200,169,110,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(200,169,110,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+      animation: cardIn 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(24px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Top shimmer line */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.6;
+    }
+
+    /* Corner accent */
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle at top right, rgba(200,169,110,0.08), transparent 70%);
+      pointer-events: none;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.5s 0.1s both;
+    }
+
+    .brand-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--gold-dim);
+    }
+
+    .brand-icon svg { width: 18px; height: 18px; }
+
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--gold-light);
+    }
+
+    .heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 6px;
+      animation: fadeUp 0.5s 0.15s both;
+    }
+
+    .subheading {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 32px;
+      animation: fadeUp 0.5s 0.2s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .field {
+      margin-bottom: 18px;
+      animation: fadeUp 0.5s both;
+    }
+    .field:nth-child(1) { animation-delay: 0.25s; }
+    .field:nth-child(2) { animation-delay: 0.3s; }
+
+    .field label {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .field:focus-within label {
+      color: var(--gold);
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      background: var(--surface2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .input-wrap input::placeholder { color: var(--text-dim); }
+
+    .input-wrap input:focus {
+      border-color: var(--border-focus);
+      background: #101020;
+      box-shadow: 0 0 0 3px rgba(200,169,110,0.08), inset 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    .input-wrap input.err {
+      border-color: rgba(224,82,82,0.5);
+      box-shadow: 0 0 0 3px rgba(224,82,82,0.06);
+    }
+
+    .input-wrap input.has-btn { padding-right: 44px; }
+
+    .toggle-btn {
+      position: absolute;
+      right: 12px; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none;
+      cursor: pointer; padding: 4px;
+      color: var(--text-dim);
+      display: flex; align-items: center;
+      transition: color 0.2s;
+    }
+    .toggle-btn:hover { color: var(--gold); }
+
+    .err-text {
+      font-size: 11.5px;
+      color: var(--red);
+      margin-top: 5px;
+      min-height: 16px;
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    .row-meta {
+      display: flex;
+      justify-content: flex-end;
+      margin: -4px 0 22px;
+      animation: fadeUp 0.5s 0.33s both;
+    }
+
+    .forgot-link {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .forgot-link:hover { color: var(--gold); }
+
+    .submit-btn {
+      width: 100%;
+      padding: 13px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      background: linear-gradient(135deg, #c8a96e 0%, #b8944e 100%);
+      color: #1a1208;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: opacity 0.2s, transform 0.15s;
+      animation: fadeUp 0.5s 0.38s both;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
+      border-radius: inherit;
+    }
+
+    .submit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .submit-btn:active { transform: translateY(0) scale(0.99); }
+    .submit-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+    .spinner {
+      width: 15px; height: 15px;
+      border: 2px solid rgba(30,20,5,0.3);
+      border-top-color: #1a1208;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+    .submit-btn.loading .spinner { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .divider {
+      display: flex; align-items: center; gap: 12px;
+      margin: 24px 0;
+      animation: fadeUp 0.5s 0.42s both;
+    }
+    .divider span {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .signup-row {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      animation: fadeUp 0.5s 0.46s both;
+    }
+    .signup-row a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .signup-row a:hover { text-decoration: underline; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 28px; left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      font-family: 'Outfit', sans-serif;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s, transform 0.22s;
+      z-index: 999;
+      display: flex; align-items: center; gap: 8px;
+      backdrop-filter: blur(12px);
+      border: 1px solid;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .toast.success {
+      background: rgba(76,175,130,0.12);
+      border-color: rgba(76,175,130,0.35);
+      color: #7de0b0;
+    }
+    .toast.error {
+      background: rgba(224,82,82,0.12);
+      border-color: rgba(224,82,82,0.35);
+      color: #f09090;
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid-lines"></div>
+
+<div class="page">
+  <div class="card">
+
+    <div class="brand">
+      <div class="brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#c8a96e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <span class="brand-name">Orion</span>
+    </div>
+
+    <h1 class="heading">Welcome back</h1>
+    <p class="subheading">Sign in to continue to your workspace</p>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <div class="input-wrap">
+        <input type="email" id="email" placeholder="you@example.com" autocomplete="email" />
+      </div>
+      <div class="err-text" id="emailErr"></div>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <div class="input-wrap">
+        <input type="password" id="password" class="has-btn" placeholder="Enter your password" autocomplete="current-password" />
+        <button class="toggle-btn" id="togglePass" type="button" aria-label="Show password">
+          <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+      <div class="err-text" id="passErr"></div>
+    </div>
+
+    <div class="row-meta">
+      <a href="#" class="forgot-link">Forgot password?</a>
+    </div>
+
+    <button class="submit-btn" id="loginBtn" type="button">
+      <div class="spinner"></div>
+      <span id="btnText">Sign in</span>
+    </button>
+
+    <div class="divider"><span>New here?</span></div>
+
+    <div class="signup-row">
+      Don't have an account? <a href="#">Create one</a>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const emailEl = document.getElementById('email');
+  const passEl  = document.getElementById('password');
+  const emailErr = document.getElementById('emailErr');
+  const passErr  = document.getElementById('passErr');
+  const loginBtn = document.getElementById('loginBtn');
+  const btnText  = document.getElementById('btnText');
+  const toast    = document.getElementById('toast');
+  const togglePass = document.getElementById('togglePass');
+  const eyeIcon  = document.getElementById('eyeIcon');
+
+  const EYE_OPEN = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+  const EYE_OFF  = `<line x1="17.94" y1="17.94" x2="22" y2="22"/><line x1="1" y1="1" x2="6.06" y2="6.06"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M6.53 6.53A10.13 10.13 0 0 0 1 12c0 0 4 8 11 8a9.84 9.84 0 0 0 5.47-1.53"/><line x1="9.88" y1="9.88" x2="14.12" y2="14.12"/>`;
+
+  togglePass.addEventListener('click', () => {
+    const show = passEl.type === 'password';
+    passEl.type = show ? 'text' : 'password';
+    eyeIcon.innerHTML = show ? EYE_OFF : EYE_OPEN;
+    togglePass.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+  });
+
+  function showToast(msg, type = 'error') {
+    toast.textContent = '';
+    const dot = document.createElement('span');
+    dot.textContent = type === 'success' ? '✓' : '✕';
+    toast.appendChild(dot);
+    toast.appendChild(document.createTextNode(' ' + msg));
+    toast.className = 'toast show ' + type;
+    setTimeout(() => { toast.className = 'toast'; }, 3500);
+  }
+
+  function setErr(input, errEl, msg) {
+    input.classList.add('err');
+    errEl.textContent = msg;
+  }
+  function clearErr(input, errEl) {
+    input.classList.remove('err');
+    errEl.textContent = '';
+  }
+
+  emailEl.addEventListener('input', () => clearErr(emailEl, emailErr));
+  passEl.addEventListener('input', () => clearErr(passEl, passErr));
+
+  loginBtn.addEventListener('click', async () => {
+    let valid = true;
+    const email = emailEl.value.trim();
+    const password = passEl.value;
+
+    if (!email) {
+      setErr(emailEl, emailErr, 'Email is required');
+      valid = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErr(emailEl, emailErr, 'Enter a valid email address');
+      valid = false;
+    }
+
+    if (!password) {
+      setErr(passEl, passErr, 'Password is required');
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    loginBtn.disabled = true;
+    loginBtn.classList.add('loading');
+    btnText.textContent = 'Signing in…';
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+
+    try {
+      const res = await fetch('http://localhost:3000/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+
+      let data;
+      try { data = await res.json(); } catch { data = { message: 'Invalid response' }; }
+
+      if (res.ok) {
+        showToast('Signed in successfully', 'success');
+        emailEl.value = '';
+        passEl.value = '';
+      } else {
+        showToast(data.message || 'Login failed');
+      }
+    } catch (err) {
+      showToast(err.name === 'AbortError' ? 'Request timed out' : 'Server error');
+    }
+
+    loginBtn.disabled = false;
+    loginBtn.classList.remove('loading');
+    btnText.textContent = 'Sign in';
+  });
+</script>
+
+</body>
+</html>

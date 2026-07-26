@@ -1,0 +1,9 @@
+Generate a Playwright test for the following scenario:
+1. Navigate to https://demo.opencart.com/
+2. Search for 'MacBook'
+3. Verify the "MacBook Air" in the list.
+No test context needed.
+Create a POM model for the following steps:
+1. Navigate to https://demo.opencart.com/
+2. Search for 'MacBook'
+3. Verify the "MacBook Air" in the list.

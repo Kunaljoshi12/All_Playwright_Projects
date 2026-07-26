@@ -1,4 +1,3 @@
-Markdown
 # 🎭 Playwright MCP (Model Context Protocol) Integration
 
 [![Playwright](https://img.shields.io/badge/Playwright-1.40+-green.svg?logo=playwright)](https://playwright.dev/)
@@ -6,11 +5,11 @@ Markdown
 [![Model Context Protocol](https://img.shields.io/badge/MCP-Enabled-purple.svg)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-An end-to-end web automation and testing suite integrated with the **Model Context Protocol (MCP)**. This project enables AI models, agents, and automated test runners to control browser environments, execute robust UI/E2E tests, and inspect application workflows using Microsoft Playwright and TypeScript.
+An end-to-end web automation and testing framework integrated with the **Model Context Protocol (MCP)**. This project enables AI agents and automated test runners to interact with browsers, execute UI tests, inspect web pages, and automate browser actions using **Playwright** and **TypeScript**.
 
 ---
 
-## 📋 Table of Contents
+# 📋 Table of Contents
 
 - [Overview](#-overview)
 - [Features](#-features)
@@ -28,196 +27,328 @@ An end-to-end web automation and testing suite integrated with the **Model Conte
 
 ---
 
-## 🚀 Overview
+# 🚀 Overview
 
-This repository bridges browser automation with AI execution capabilities through the Model Context Protocol (MCP). By exposing Playwright's automation engine via an MCP interface, LLMs and client tools can perform deterministic web browsing, execute automated UI testing, capture visual evidence, and evaluate web app performance seamlessly.
-
----
-
-## ✨ Features
-
-* **MCP Integration:** Exposes structured browser tools to AI clients via the Model Context Protocol.
-* **Cross-Browser Automation:** Out-of-the-box support for Chromium, Firefox, and WebKit.
-* **Type-Safe Development:** Built entirely with TypeScript for robust code quality and autocomplete support.
-* **Rich Test Reporting:** HTML reports with embedded screenshots, trace viewer traces, and video recordings upon failure.
-* **Parallel Execution:** Fast, isolated test execution using Playwright’s native parallel runner.
-* **Auto-Waiting Engine:** Eliminates artificial timeouts by waiting for elements to be actionable before performing steps.
+This repository integrates **Microsoft Playwright** with the **Model Context Protocol (MCP)**, allowing AI assistants and developers to automate browser interactions, execute end-to-end tests, capture screenshots, inspect page elements, and perform deterministic web automation.
 
 ---
 
-## 🛠️ Tech Stack
+# ✨ Features
 
-* **Language:** [TypeScript](https://www.typescriptlang.org/)
-* **Automation Framework:** [Playwright](https://playwright.dev/)
-* **Protocol:** [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)
-* **Runtime:** [Node.js](https://nodejs.org/) (v18+)
-* **Package Manager:** `npm`
+- 🚀 Model Context Protocol (MCP) Integration
+- 🌐 Cross-browser automation (Chromium, Firefox & WebKit)
+- 📝 Built with TypeScript
+- ⚡ Parallel test execution
+- 📊 Interactive HTML reports
+- 📷 Automatic screenshots, videos and traces on failures
+- 🤖 AI-powered browser automation
+- ⏳ Playwright auto-waiting support
 
 ---
 
-## 📁 Project Structure
+# 🛠 Tech Stack
+
+| Technology | Description |
+|------------|-------------|
+| TypeScript | Programming Language |
+| Playwright | Browser Automation Framework |
+| Node.js | JavaScript Runtime |
+| MCP | Model Context Protocol |
+| npm | Package Manager |
+
+---
+
+# 📁 Project Structure
 
 ```text
 Playwright-MCP/
+│
 ├── src/
-│   ├── index.ts           # MCP Server entry point
-│   ├── tools/             # Custom MCP tools and browser action handlers
-│   └── utils/             # Helper utilities and logger configurations
+│   ├── index.ts
+│   ├── tools/
+│   └── utils/
+│
 ├── tests/
-│   ├── example.spec.ts    # E2E test cases
-│   └── setup/             # Global test fixtures and hooks
-├── playwright.config.ts   # Playwright global runner configuration
-├── package.json           # Node dependencies and project scripts
-├── tsconfig.json          # TypeScript compiler configuration
-└── README.md              # Project documentation
-Folder Breakdown
-src/: Contains the primary server logic to run the MCP service and register tools.
+│   ├── example.spec.ts
+│   └── setup/
+│
+├── playwright.config.ts
+├── package.json
+├── tsconfig.json
+└── README.md
+```
 
-tests/: Contains end-to-end specs, custom test fixtures, and visual regression benchmarks.
+## Folder Breakdown
 
-playwright.config.ts: Configures base URLs, timeouts, headless modes, retries, and test reporters.
+| Folder/File | Description |
+|-------------|-------------|
+| `src/` | MCP server source code |
+| `tools/` | Browser automation tools |
+| `utils/` | Utility functions |
+| `tests/` | Playwright test cases |
+| `playwright.config.ts` | Playwright configuration |
+| `package.json` | Project dependencies |
+| `README.md` | Project documentation |
 
-⚡ Prerequisites
-Before installing the project, ensure you have the following installed on your machine:
+---
 
-Node.js: v18.0.0 or higher (Download Node.js)
+# ⚡ Prerequisites
 
-npm: v9.0.0 or higher (comes bundled with Node.js)
+Make sure the following software is installed:
 
-Git: (Download Git)
+- **Node.js** v18 or above
+- **npm** v9 or above
+- **Git**
 
-Verify your installation by running:
+Verify installation:
 
-Bash
+```bash
 node -v
 npm -v
-📥 Installation & Setup
-Follow these step-by-step instructions to get your local environment running:
+git --version
+```
 
-1. Clone the Repository
-Bash
-git clone [https://github.com/YOUR_USERNAME/Playwright-MCP.git](https://github.com/YOUR_USERNAME/Playwright-MCP.git)
+---
+
+# 📥 Installation & Setup
+
+## 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/Playwright-MCP.git
 cd Playwright-MCP
-2. Install Project Dependencies
-Install all required Node modules specified in package.json:
+```
 
-Bash
+---
+
+## 2️⃣ Install Dependencies
+
+```bash
 npm install
-3. Install Playwright Browsers
-Download the required browser binaries (Chromium, Firefox, WebKit) and OS dependencies:
+```
 
-Bash
+---
+
+## 3️⃣ Install Playwright Browsers
+
+```bash
 npx playwright install --with-deps
-⚙️ Running the Project
-Running the MCP Server Locally
-To build and start the Playwright MCP server interface:
+```
 
-Bash
-# Build TypeScript to JavaScript
+---
+
+# ⚙️ Running the Project
+
+## Build the Project
+
+```bash
 npm run build
+```
 
-# Start the MCP server
+## Start MCP Server
+
+```bash
 npm start
-Integrating with Claude Desktop / MCP Clients
-Add the server configuration to your MCP settings file (e.g., claude_desktop_config.json):
+```
 
-JSON
+## Development Mode
+
+```bash
+npm run dev
+```
+
+---
+
+# 🤖 Configure MCP Client
+
+Example `claude_desktop_config.json`
+
+```json
 {
   "mcpServers": {
     "playwright-mcp": {
       "command": "node",
-      "args": ["/path/to/Playwright-MCP/build/index.js"]
+      "args": [
+        "/path/to/Playwright-MCP/build/index.js"
+      ]
     }
   }
 }
-🧪 Running Tests
-Playwright provides several commands to run your automated test suite:
+```
 
-Run All Tests (Headless Mode)
-Bash
+---
+
+# 🧪 Running Tests
+
+## Run All Tests
+
+```bash
 npx playwright test
-Run Tests in Headed Mode (Watch Browser UI)
-Bash
+```
+
+---
+
+## Run Tests in Headed Mode
+
+```bash
 npx playwright test --headed
-Run Tests on a Specific Browser
-Bash
-# Run on Chromium
+```
+
+---
+
+## Run Tests in UI Mode
+
+```bash
+npx playwright test --ui
+```
+
+---
+
+## Run on Chromium
+
+```bash
 npx playwright test --project=chromium
+```
 
-# Run on Firefox
+---
+
+## Run on Firefox
+
+```bash
 npx playwright test --project=firefox
-Run a Specific Test File
-Bash
+```
+
+---
+
+## Run on WebKit
+
+```bash
+npx playwright test --project=webkit
+```
+
+---
+
+## Run a Specific Test File
+
+```bash
 npx playwright test tests/example.spec.ts
-📊 Test Reports
-Playwright generates detailed interactive reports for test analysis and debugging.
+```
 
-View HTML Test Report
-After running your tests, open the generated HTML report:
+---
 
-Bash
+# 📊 Test Reports
+
+## Open HTML Report
+
+```bash
 npx playwright show-report
-Inspect Traces with Playwright Trace Viewer
-If a test fails or captures a trace, view the execution steps, DOM snapshots, and network calls:
+```
 
-Bash
-npx playwright show-trace test-results/path-to-trace.zip
-🔧 Configuration Details
-Configuration for browser behavior, base URLs, and test execution options can be adjusted in playwright.config.ts:
+---
 
-TypeScript
+## View Trace File
+
+```bash
+npx playwright show-trace test-results/trace.zip
+```
+
+---
+
+# 🔧 Configuration Details
+
+Example `playwright.config.ts`
+
+```typescript
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',
+
   fullyParallel: true,
+
   retries: process.env.CI ? 2 : 0,
+
   workers: process.env.CI ? 1 : undefined,
-  reporter: [['html', { open: 'never' }]],
+
+  reporter: [
+    ['html', { open: 'never' }]
+  ],
+
   use: {
-    baseURL: '[https://example.com](https://example.com)',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'retain-on-failure'
   },
+
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
+      use: {
+        ...devices['Desktop Chrome']
+      }
+    }
+  ]
 });
-🔍 Troubleshooting
-Issue 1: Missing Browser Dependencies
-Error: Executable doesn't exist at /path/to/browser
+```
 
-Solution: Run the dependency installer command:
+---
 
-Bash
+# 🔍 Troubleshooting
+
+## Missing Browser Executables
+
+```bash
 npx playwright install --with-deps
-Issue 2: Node Module Conflicts
-Error: Cannot find module ... or version mismatches after updates.
+```
 
-Solution: Clean install your project dependencies:
+---
 
-Bash
+## Reinstall Dependencies
+
+```bash
 rm -rf node_modules package-lock.json
 npm install
-Issue 3: MCP Connection Timeout
-Solution: Ensure the TypeScript code is compiled before starting the server (npm run build). Verify that the file paths in your client config match your actual absolute build directory.
+```
 
-🤝 Contributing
-Contributions are welcome! Please follow these simple steps:
+---
 
-Fork the repository.
+## Build Before Starting MCP
 
-Create a feature branch: git checkout -b feature/amazing-feature.
+```bash
+npm run build
+npm start
+```
 
-Commit your changes: git commit -m 'Add amazing feature'.
+---
 
-Push to the branch: git push origin feature/amazing-feature.
+# 🤝 Contributing
 
-Open a Pull Request.
+1. Fork the repository.
 
-📜 License
-Distributed under the MIT License. See LICENSE for more information.
+2. Create a new branch.
+
+```bash
+git checkout -b feature/your-feature
+```
+
+3. Commit changes.
+
+```bash
+git commit -m "Add new feature"
+```
+
+4. Push to GitHub.
+
+```bash
+git push origin feature/your-feature
+```
+
+5. Create a Pull Request.
+
+---
+
+# 📜 License
+
+This project is licensed under the **MIT License**.
+
+See the **LICENSE** file for more information.

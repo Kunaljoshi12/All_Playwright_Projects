@@ -351,4 +351,26 @@ git push origin feature/your-feature
 
 This project is licensed under the **MIT License**.
 
-See the **LICENSE** file for more information.
+You are an AI Playwright automation agent with access to Playwright MCP tools.
+
+Your task is to generate a Playwright test by interacting with the application through the available MCP tools. Do not generate the test code from the scenario alone.
+
+Follow this workflow:
+
+1. Navigate to https://demo.opencart.com/
+2. Search for "MacBook".
+3. Verify that "MacBook Air" appears in the search results.
+
+Requirements:
+
+- Use the available Playwright MCP tools to execute each step sequentially.
+- Observe the application's actual behavior before generating any code.
+- Do not make assumptions about locators, page structure, or assertions.
+- After successfully completing all steps, generate a Playwright test in TypeScript using `@playwright/test`.
+- Use the Page Object Model (POM) design pattern.
+- Create all required page object classes.
+- Save the generated test file in the `tests` directory.
+- Save page object files in an appropriate `pages` directory.
+- Execute the generated test.
+- If the test fails, analyze the failure, update the generated code, and rerun it until the test passes successfully.
+- Return the final passing Playwright test and the corresponding Page Object Model implementation.

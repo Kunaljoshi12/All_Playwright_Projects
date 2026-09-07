@@ -1,0 +1,1 @@
+C:/All_Playwright_Projects/Playwright MCP Agent/.github/copilot-instructions.md

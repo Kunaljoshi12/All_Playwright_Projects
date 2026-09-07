@@ -6,3 +6,11 @@ Only after all steps are completed, emit a Playwright TypeScript test that uses
 @playwright/test based on message history
 Save generated test file in the tests directory.
 Execute the test file and iterate until the test passes.
+
+
+https://www.functionize.com/
+https://applitools.com/
+https://www.mabl.com/
+https://testsigma.com/
+https://www.testim.io/
+
